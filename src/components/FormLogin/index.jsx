@@ -1,16 +1,17 @@
 import { useForm } from "react-hook-form"
-import { Form, Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { api } from "../../services/api"
 import { StyledFormLogin } from "./style"
+import { toast } from "react-toastify"
 
 const schema = yup.object({
   email: yup.string().required("O campo email é obrigatório"),
   password: yup.string().required("O campo senha é obrigatório"),
 })
 
-export function FormLogin({ setUser }) {
+export function FormLogin({ setUser, setLoading, loading }) {
   const {
     register,
     handleSubmit,
@@ -29,16 +30,23 @@ export function FormLogin({ setUser }) {
       localStorage.setItem("@TOKEN", response.data.token)
       localStorage.setItem("@USERID", response.data.user.id)
 
-      alert("Usúario logado com sucesso")
+      toast.success("Usuário logado com sucesso")
       navigate("/dashboard")
     } catch (error) {
-      console.log(error.response.data.message)
+      if (
+        error.response.data.message === "Incorrect email / password combination"
+      ) {
+        toast.error("Email ou senha incorretos")
+      } else {
+        toast.error(error.response.data.message)
+      }
     }
   }
 
   function onSubmit(data) {
     setUser(data)
     handleLogin(data)
+    setLoading(true)
   }
 
   return (
@@ -62,7 +70,16 @@ export function FormLogin({ setUser }) {
       />
       <p>{errors.password?.message}</p>
 
-      <button type="submit">Entrar</button>
+      <button type="submit">
+        {loading === true ? (
+          <span>
+            <div className="loading_ring"></div>
+            {loading}
+          </span>
+        ) : (
+          "Entrar"
+        )}
+      </button>
       <small>Ainda não possui uma conta?</small>
       <Link to={"/register"}>Cadastre-se</Link>
     </StyledFormLogin>

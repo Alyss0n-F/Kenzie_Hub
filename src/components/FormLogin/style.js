@@ -13,13 +13,28 @@ export const StyledFormLogin = styled.form`
 
   input {
     width: 100%;
-    height: 30px;
+    height: 43px;
     border-radius: 3px;
-    border: 1px solid white;
+    border: none;
     background-color: var(--grey-2);
     outline: none;
     padding: 15px 10px;
     color: white;
+    transition: 0.2s;
+  }
+
+  input:focus {
+    outline: 1px solid var(--grey-0);
+    ::placeholder {
+      color: var(--grey-0);
+    }
+  }
+
+  input:hover {
+    outline: 1px solid var(--grey-0);
+    ::placeholder {
+      color: var(--grey-0);
+    }
   }
 
   input::placeholder {
@@ -39,6 +54,12 @@ export const StyledFormLogin = styled.form`
     background-color: var(--color-primary);
     color: white;
     padding: 0px 15px;
+    cursor: pointer;
+    transition: 0.2s linear;
+  }
+
+  button:hover {
+    background-color: var(--color-primary-focus);
   }
 
   a {
@@ -55,6 +76,11 @@ export const StyledFormLogin = styled.form`
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
+    transition: 0.2s linear;
+  }
+
+  a:hover {
+    background-color: var(--grey-2);
   }
 
   small {
@@ -68,8 +94,14 @@ export const StyledFormLogin = styled.form`
     font-size: 15px;
   }
 
+  p {
+    color: var(--grey-1);
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
   @media (min-width: 1200px) {
     width: 370px;
-    height: 450px;
   }
 `
