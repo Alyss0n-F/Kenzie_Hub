@@ -1,17 +1,19 @@
 import { useForm } from "react-hook-form"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
-import { api } from "../../services/api"
 import { StyledFormLogin } from "./style"
-import { toast } from "react-toastify"
+import { useContext } from "react"
+import { UserContext } from "../../providers/UserContext"
 
 const schema = yup.object({
   email: yup.string().required("O campo email é obrigatório"),
   password: yup.string().required("O campo senha é obrigatório"),
 })
 
-export function FormLogin({ setUser, setLoading, loading }) {
+export function FormLogin() {
+  const { setUser, handleLogin, loading, setLoading } = useContext(UserContext)
+
   const {
     register,
     handleSubmit,
@@ -19,29 +21,6 @@ export function FormLogin({ setUser, setLoading, loading }) {
   } = useForm({
     resolver: yupResolver(schema),
   })
-
-  const navigate = useNavigate()
-
-  async function handleLogin(data) {
-    try {
-      const response = await api.post("/sessions", data)
-      setUser(response.data.user)
-
-      localStorage.setItem("@TOKEN", response.data.token)
-      localStorage.setItem("@USERID", response.data.user.id)
-
-      toast.success("Usuário logado com sucesso")
-      navigate("/dashboard")
-    } catch (error) {
-      if (
-        error.response.data.message === "Incorrect email / password combination"
-      ) {
-        toast.error("Email ou senha incorretos")
-      } else {
-        toast.error(error.response.data.message)
-      }
-    }
-  }
 
   function onSubmit(data) {
     setUser(data)

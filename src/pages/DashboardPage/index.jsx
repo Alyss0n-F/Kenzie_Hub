@@ -1,16 +1,14 @@
-import { useNavigate } from "react-router-dom"
-import { toast } from "react-toastify"
+import { useContext } from "react"
+import { AddModal } from "../../components/AddModal"
+import { CardTech } from "../../components/CardTech"
+import { TechContext } from "../../providers/TechContext"
+import { UserContext } from "../../providers/UserContext"
 import { StyledDashboard } from "./style"
 
-export function DashboardPage({ user, setUser }) {
-  const navigate = useNavigate()
+export function DashboardPage() {
+  const { user, logout } = useContext(UserContext)
+  const { modal, setModal } = useContext(TechContext)
 
-  function logout() {
-    window.localStorage.clear()
-    setUser("")
-    navigate("/")
-    toast.info(`${user.name} saiu`)
-  }
   return (
     <StyledDashboard>
       <nav>
@@ -22,10 +20,15 @@ export function DashboardPage({ user, setUser }) {
         <small>{user.course_module}</small>
       </header>
       <main>
-        <h3>Que pena! Estamos em desenvolvimento :(</h3>
-        <p>
-          Nossa aplicação está em desenvolvimento, em breve teremos novidades
-        </p>
+        <div>
+          <h3>Tecnologias</h3>
+          <button onClick={() => setModal(!modal)}>+</button>
+          {modal && <AddModal />}
+        </div>
+        <ul>
+          {user &&
+            user.techs.map((tech) => <CardTech key={tech.id} tech={tech} />)}
+        </ul>
       </main>
     </StyledDashboard>
   )

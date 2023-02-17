@@ -1,10 +1,9 @@
 import { useForm } from "react-hook-form"
-import { useNavigate } from "react-router-dom"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
-import { api } from "../../services/api"
-import { toast } from "react-toastify"
 import { StyledFormRegister } from "./style"
+import { useContext } from "react"
+import { UserContext } from "../../providers/UserContext"
 
 const schema = yup.object({
   name: yup.string().required("O campo nome é obrigatório"),
@@ -29,6 +28,8 @@ const schema = yup.object({
 })
 
 export function FormRegister() {
+  const { handleRegister } = useContext(UserContext)
+
   const {
     register,
     handleSubmit,
@@ -38,24 +39,7 @@ export function FormRegister() {
   })
 
   function onSubmit(data) {
-    console.log(data)
-    handleLogin(data)
-  }
-
-  const navigate = useNavigate()
-
-  async function handleLogin(data) {
-    try {
-      await api.post("/users", data)
-      toast.success("Conta criada com sucesso!")
-      navigate("/")
-    } catch (error) {
-      if (error.response.data.message === "Email already exists") {
-        toast.error("Já existe uma conta associada a este email")
-      } else {
-        toast.error(error.response.data.message)
-      }
-    }
+    handleRegister(data)
   }
 
   return (
