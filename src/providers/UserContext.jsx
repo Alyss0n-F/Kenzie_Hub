@@ -8,6 +8,7 @@ export const UserContext = createContext({})
 export function UserProvider({ children }) {
   const [user, setUser] = useState("")
   const [loading, setLoading] = useState(false)
+  const [techList, setTechList] = useState([])
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -21,6 +22,7 @@ export function UserProvider({ children }) {
             },
           })
           setUser(response.data)
+          setTechList(response.data.techs)
         } catch (error) {
           localStorage.removeItem("@TOKEN")
         }
@@ -84,6 +86,8 @@ export function UserProvider({ children }) {
         loading,
         setLoading,
         logout,
+        techList,
+        setTechList,
       }}
     >
       {children}

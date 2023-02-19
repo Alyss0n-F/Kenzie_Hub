@@ -1,13 +1,15 @@
 import { useContext } from "react"
 import { AddModal } from "../../components/AddModal"
 import { CardTech } from "../../components/CardTech"
+import { UpdateModal } from "../../components/UpdateModal"
 import { TechContext } from "../../providers/TechContext"
 import { UserContext } from "../../providers/UserContext"
 import { StyledDashboard } from "./style"
 
 export function DashboardPage() {
-  const { user, logout } = useContext(UserContext)
-  const { modal, setModal } = useContext(TechContext)
+  const { user, logout, techList } = useContext(UserContext)
+  const { addModal, setAddModal, updateModal, setUpdateModal } =
+    useContext(TechContext)
 
   return (
     <StyledDashboard>
@@ -22,14 +24,15 @@ export function DashboardPage() {
       <main>
         <div>
           <h3>Tecnologias</h3>
-          <button onClick={() => setModal(!modal)}>+</button>
-          {modal && <AddModal />}
+          <button onClick={() => setAddModal(!addModal)}>+</button>
+          {addModal && <AddModal />}
         </div>
         <ul>
           {user &&
-            user.techs.map((tech) => <CardTech key={tech.id} tech={tech} />)}
+            techList.map((tech) => <CardTech key={tech.id} tech={tech} />)}
         </ul>
       </main>
+      {updateModal && <UpdateModal />}
     </StyledDashboard>
   )
 }
