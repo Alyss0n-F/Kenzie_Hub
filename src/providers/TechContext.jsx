@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react"
+import { toast } from "react-toastify"
 import { api } from "../services/api"
 import { UserContext } from "./UserContext"
 
@@ -22,7 +23,7 @@ export function TechProvider({ children }) {
       })
       setTechList([...techList, response.data])
       setAddModal(false)
-      alert("Tecnologia cadastrada!")
+      toast.success("Tecnologia cadastrada!")
     } catch (error) {
       console.log(error.response.data)
     }
@@ -40,7 +41,7 @@ export function TechProvider({ children }) {
       const filtered = techList.filter((tech) => tech.id !== techID)
       setTechList(filtered)
       setUpdateModal(false)
-      alert("Tecnologia excluida")
+      toast.info("Tecnologia excluida")
     } catch (error) {
       console.log(error.data)
     }
@@ -64,7 +65,7 @@ export function TechProvider({ children }) {
       })
       setTechList(updatedTech)
       setUpdateModal(false)
-      alert("Tecnologia atualizada")
+      toast.success("Tecnologia atualizada")
     } catch (error) {
       console.log(error.response.data)
     }

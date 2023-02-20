@@ -10,9 +10,9 @@ export function ApplicationRoutes() {
       <Route path="/" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
 
-      {/* <Route path="/dashboard" element={<RouteProtection />}> */}
-      <Route path="/dashboard" element={<DashboardPage />} />
-      {/* </Route> */}
+      <Route path="/dashboard" element={<RouteProtection />}>
+        <Route index element={<DashboardPage />} />
+      </Route>
     </Routes>
   )
 }
