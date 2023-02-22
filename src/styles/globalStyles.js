@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components"
 
 export const GlobalStyles = createGlobalStyle`
-    body, h1, h3, label, form, div, button, input, p, small, a{
+    body, h1, h3, h4, h5, label, form, div, button, input, p, small, a{
         margin: 0;
         padding: 0;
         box-sizing: border-box;

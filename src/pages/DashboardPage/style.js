@@ -57,6 +57,36 @@ export const StyledDashboard = styled.div`
     justify-content: flex-start;
     padding: 15px;
     gap: 20px;
+
+    .title_container {
+      display: flex;
+      justify-content: space-between;
+
+      button {
+        padding: 2px 8px;
+        font-size: 20px;
+        border-radius: 4px;
+        border: none;
+        background-color: var(--grey-3);
+        color: white;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      button:hover {
+        background-color: var(--grey-2);
+      }
+    }
+
+    ul {
+      background-color: var(--grey-3);
+      list-style: none;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border-radius: 4px;
+    }
   }
 
   @media (min-width: 1200px) {

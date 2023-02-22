@@ -22,16 +22,16 @@ export function DashboardPage() {
         <small>{user.course_module}</small>
       </header>
       <main>
-        <div>
+        <div className="title_container">
           <h3>Tecnologias</h3>
           <button onClick={() => setAddModal(!addModal)}>+</button>
-          {addModal && <AddModal />}
         </div>
         <ul>
           {user &&
             techList.map((tech) => <CardTech key={tech.id} tech={tech} />)}
         </ul>
       </main>
+      {addModal && <AddModal />}
       {updateModal && <UpdateModal />}
     </StyledDashboard>
   )

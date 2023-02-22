@@ -1,7 +1,3 @@
 {
-  "projectId": "prj_fl5ZAJm0eLA5mcsu3wXhBeDJ1RLl",
-  "orgId": "trqpVOqPI0PWvC77Yz9Xo4j7",
-
-  "routes": [{ "src": "/[^.]+", "dest": "/", "status": 200 }],
-  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
+  "routes": [{ "src": "/[^.]+", "dest": "/", "status": 200 }]
 }
