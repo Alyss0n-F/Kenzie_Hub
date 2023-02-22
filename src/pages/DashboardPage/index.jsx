@@ -27,8 +27,11 @@ export function DashboardPage() {
           <button onClick={() => setAddModal(!addModal)}>+</button>
         </div>
         <ul>
-          {user &&
-            techList.map((tech) => <CardTech key={tech.id} tech={tech} />)}
+          {techList.length > 0 ? (
+            techList.map((tech) => <CardTech key={tech.id} tech={tech} />)
+          ) : (
+            <h4>Sem tecnologias adicionadas</h4>
+          )}
         </ul>
       </main>
       {addModal && <AddModal />}

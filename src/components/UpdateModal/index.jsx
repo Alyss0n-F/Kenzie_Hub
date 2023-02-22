@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { TechContext } from "../../providers/TechContext"
 import { StyledUpdateModal } from "./style"
+import { UserContext } from "../../providers/UserContext"
 
 export function UpdateModal() {
   const {
@@ -15,6 +16,7 @@ export function UpdateModal() {
     deleteTech,
     updateSelect,
   } = useContext(TechContext)
+  const { loading, setLoading } = useContext(UserContext)
 
   const schema = yup.object({
     status: yup.string().required("O campo status é obrigatório"),
@@ -30,6 +32,7 @@ export function UpdateModal() {
 
   function onSubmit(data) {
     updateTech(data)
+    setLoading(true)
   }
 
   return (
@@ -37,7 +40,18 @@ export function UpdateModal() {
       <div className="modal_content">
         <div className="title_container">
           <h5>Editar Tecnologia</h5>
-          <button onClick={() => setUpdateModal(!updateModal)}>X</button>
+
+          <button onClick={() => setUpdateModal(!updateModal)}>
+            {" "}
+            {loading === true ? (
+              <div className="loading_container">
+                <div className="loading_ring"></div>
+                {loading}
+              </div>
+            ) : (
+              "X"
+            )}
+          </button>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)}>

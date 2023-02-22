@@ -11,7 +11,7 @@ export function TechProvider({ children }) {
   const [updateID, setUpdateID] = useState("")
   const [updateInput, setUpdateInput] = useState("")
   const [updateSelect, setUpdateSelect] = useState("")
-  const { techList, setTechList } = useContext(UserContext)
+  const { techList, setTechList, setLoading } = useContext(UserContext)
 
   async function createTech(data) {
     const token = localStorage.getItem("@TOKEN")
@@ -23,9 +23,16 @@ export function TechProvider({ children }) {
       })
       setTechList([...techList, response.data])
       setAddModal(false)
+      setLoading(false)
       toast.success("Tecnologia cadastrada!")
     } catch (error) {
-      console.log(error.response.data)
+      if (
+        error.response.data.message ===
+        "User Already have this technology created you can only update it"
+      ) {
+        toast.error("Esta tecnologia já foi cadastrada!")
+        setLoading(false)
+      }
     }
   }
 
@@ -41,6 +48,7 @@ export function TechProvider({ children }) {
       const filtered = techList.filter((tech) => tech.id !== techID)
       setTechList(filtered)
       setUpdateModal(false)
+      setLoading(false)
       toast.info("Tecnologia excluida")
     } catch (error) {
       console.log(error.data)
@@ -65,6 +73,7 @@ export function TechProvider({ children }) {
       })
       setTechList(updatedTech)
       setUpdateModal(false)
+      setLoading(false)
       toast.success("Tecnologia atualizada")
     } catch (error) {
       console.log(error.response.data)

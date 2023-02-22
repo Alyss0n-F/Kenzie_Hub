@@ -106,5 +106,25 @@ export const StyledAddModal = styled.div`
         font-weight: 400;
       }
     }
+
+    .loading_ring {
+      border: 6px solid white;
+      border-top: 6px solid var(--color-primary);
+      margin: 0 auto;
+      height: 25px;
+      width: 25px;
+      border-radius: 50%;
+      box-shadow: 0px 0px 5px black;
+      animation: animate 1s ease-in-out infinite;
+    }
+
+    @keyframes animate {
+      0% {
+        transform: rotate(45deg);
+      }
+      100% {
+        transform: rotate(405deg);
+      }
+    }
   }
 `

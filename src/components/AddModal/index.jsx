@@ -3,10 +3,12 @@ import { useContext } from "react"
 import { useForm } from "react-hook-form"
 import * as yup from "yup"
 import { TechContext } from "../../providers/TechContext"
+import { UserContext } from "../../providers/UserContext"
 import { StyledAddModal } from "./style"
 
 export function AddModal() {
   const { addModal, setAddModal, createTech } = useContext(TechContext)
+  const { loading, setLoading } = useContext(UserContext)
 
   const schema = yup.object({
     title: yup.string().required("O campo nome é obrigatório"),
@@ -23,6 +25,7 @@ export function AddModal() {
 
   function onSubmit(data) {
     createTech(data)
+    setLoading(true)
   }
 
   return (
@@ -52,7 +55,16 @@ export function AddModal() {
           </select>
           <p>{errors.status?.message}</p>
 
-          <button type="submit">Cadastrar Tecnologia</button>
+          <button type="submit">
+            {loading === true ? (
+              <span>
+                <div className="loading_ring"></div>
+                {loading}
+              </span>
+            ) : (
+              "Entrar"
+            )}
+          </button>
         </form>
       </div>
     </StyledAddModal>

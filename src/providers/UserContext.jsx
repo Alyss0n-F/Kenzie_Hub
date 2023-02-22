@@ -40,6 +40,7 @@ export function UserProvider({ children }) {
       localStorage.setItem("@USERID", response.data.user.id)
 
       toast.success("Usuário logado com sucesso")
+      setLoading(false)
       navigate("/dashboard")
     } catch (error) {
       if (

@@ -108,4 +108,8 @@ export const StyledDashboard = styled.div`
       gap: 40px;
     }
   }
+
+  h4 {
+    text-align: center;
+  }
 `
