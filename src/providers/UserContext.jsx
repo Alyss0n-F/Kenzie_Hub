@@ -63,8 +63,10 @@ export function UserProvider({ children }) {
     } catch (error) {
       if (error.response.data.message === "Email already exists") {
         toast.error("Já existe uma conta associada a este email")
+      } else if (error.response.data.message[0] === "invalid email") {
+        toast.error("Email inválido")
       } else {
-        toast.error(error.response.data.message)
+        toast.error(error.response.data.message[0])
       }
     }
   }
